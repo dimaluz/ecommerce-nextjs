@@ -21,3 +21,9 @@ export const RegisterSchema = z.object({
         message: 'Minimum 6 characters required!'
     }),
 })
+
+//Dashboard schemas
+
+export const formSchema = z.object({
+    name: z.string().min(1),
+})
