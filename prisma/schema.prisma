@@ -32,6 +32,7 @@ model User {
   password      String?
   role          UserRole        @default(CUSTOMER)
   accounts      Account[]
+  store         Store[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -65,4 +66,15 @@ model VerificationToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+
+model Store {
+  id          String  @id @default(cuid())
+  name        String
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner User @relation(fields: [userId], references: [id], onDelete: Cascade) 
 }

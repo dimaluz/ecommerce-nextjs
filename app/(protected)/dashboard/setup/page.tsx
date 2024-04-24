@@ -16,16 +16,14 @@ const SetupPage = () => {
     }, [isOpen, onOpen])
 
     return (
-        <div className='p-4'>
-            <Modal 
-                title='Test'
-                description="Test Description"
-                isOpen
-                onClose={() => {}}
-            >
-                
-            </Modal>
-        </div>
+        <Modal 
+            title='Test'
+            description="Test Description"
+            isOpen
+            onClose={() => {}}
+        >
+            
+        </Modal>
     )
 }
 
