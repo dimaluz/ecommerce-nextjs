@@ -20,12 +20,12 @@ export const CreateNewStore = async (values: z.infer<typeof formSchema>) => {
         return {error: 'Invalid name!'}
     }
 
-    await db.store.create({
+    const store = await db.store.create({
         data: {
             name: validatedFields.data.name,
             userId: existedUser.user.id,
         }
     })
 
-    return {success: 'New store was created successfully!'}
+    return {success: 'New store was created successfully!', storeId: store.id}
 }

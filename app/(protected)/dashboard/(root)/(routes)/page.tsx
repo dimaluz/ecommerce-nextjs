@@ -2,7 +2,6 @@
 
 import { useEffect } from "react"
 
-import { Modal } from "@/components/ui/modal"
 import { useStoreModal } from "@/hooks/use-store-modal"
 
 
@@ -15,16 +14,7 @@ const SetupPage = () => {
         if (!isOpen) onOpen()
     }, [isOpen, onOpen])
 
-    return (
-        <Modal 
-            title='Test'
-            description="Test Description"
-            isOpen
-            onClose={() => {}}
-        >
-            
-        </Modal>
-    )
+    return null;
 }
 
 export default SetupPage

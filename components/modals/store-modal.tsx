@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { CreateNewStore } from "@/actions/dashboard/stores/create-new-store"
 
 
+
 export const StoreModal = () => {
 
     const { toast } = useToast()
@@ -31,16 +32,12 @@ export const StoreModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         //Create a new store
-        console.log(values)
         try {
             setLoading(true)
             const response = await CreateNewStore(values)
             
             if (response.success) {
-                toast({
-                    title: 'Success!',
-                    description: response.success,
-                })
+                window.location.assign(`/dashboard/${response.storeId}`)
             }
 
             if (response.error) {
