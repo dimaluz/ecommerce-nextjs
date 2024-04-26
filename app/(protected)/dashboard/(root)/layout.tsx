@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
 
+
 export default async function SetupLayout ({ children }:{ children: React.ReactNode}) {
     const existedUser = await auth()
 
