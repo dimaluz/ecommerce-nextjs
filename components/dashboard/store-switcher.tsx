@@ -35,9 +35,9 @@ export default function StoreSwitcher ({
 
     const currentStore = formatedItems.find((item) => item.value === params.storeId);
 
-    const onStoreSelect = (store: {value: string, label: string}) => {
+    const onStoreSelect = (store: {label: string, value: string}) => {
         setOpen(false);
-        router.push(`/dashboard/${store.value}`)
+        router.push(`/dashboard/${store.value}`);
     }
 
     return (
@@ -69,7 +69,8 @@ export default function StoreSwitcher ({
                                 <CommandItem
                                     key={store.value}
                                     onSelect={() => onStoreSelect(store)}
-                                    className="text-sm"
+                                    className="w-full text-sm"
+                                    
                                 >
                                     <StoreIcon className='mr-2 h-4 w-4' />
                                     {store.label}
