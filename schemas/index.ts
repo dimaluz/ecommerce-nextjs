@@ -40,3 +40,7 @@ export const RegisterSchema = z.object({
 export const formSchema = z.object({
     name: z.string().min(1),
 })
+
+export const settingsSchema = z.object({
+    name: z.string().min(1),
+})
