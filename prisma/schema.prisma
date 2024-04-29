@@ -16,7 +16,7 @@ datasource db {
   // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
-
+//                                  Authentication models
 enum UserRole {
   ADMIN
   CUSTOMER
@@ -24,15 +24,17 @@ enum UserRole {
 
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole        @default(CUSTOMER)
-  accounts      Account[]
-  store         Store[]
+  id                  String          @id @default(cuid())
+  name                String?
+  email               String          @unique
+  emailVerified       DateTime?
+  image               String?
+  password            String?
+  role                UserRole        @default(CUSTOMER)
+  accounts            Account[]
+  store               Store[]
+  isTwoFactorEnabled  Boolean         @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -77,13 +79,44 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
+model TwoFactorToken {
+  id        String    @id @default(cuid())
+  email     String
+  token     String    @unique
+  expires   DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id        String    @id     @default(cuid())
+  userId    String 
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+//                            Store models
 
 model Store {
   id          String  @id @default(cuid())
   name        String
   userId      String
+  billboards Billboard[] @relation("StoreToBillboard")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   owner User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+}
+
+model Billboard {
+  id        String  @id @default(cuid())
+  storeId   String 
+  store     Store   @relation("StoreToBillboard", fields: [storeId], references: [id])
+  label     String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }

@@ -20,6 +20,7 @@ export const LoginSchema = z.object({
     password: z.string().min(1, {
         message: 'Password is required'
     }),
+    code: z.optional(z.string()),
 })
 
 export const RegisterSchema = z.object({
@@ -43,4 +44,9 @@ export const formSchema = z.object({
 
 export const settingsSchema = z.object({
     name: z.string().min(1),
+})
+
+export const billboardSchema = z.object({
+    label: z.string().min(1),
+    imageUrl: z.string().min(1),
 })
