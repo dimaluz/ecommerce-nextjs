@@ -14,7 +14,7 @@ import {
     AvatarFallback,
 } from '@/components/ui/avatar'
 import { useCurrentUser } from '@/hooks/use-current-user'
-// import { LogoutButton } from '@/components/auth/logout-button'
+import { LogoutButton } from '@/components/auth/logout-button'
 
 
 export const UserButton = () => {
@@ -32,11 +32,11 @@ export const UserButton = () => {
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-40' align="end">
-                {/* <LogoutButton>
+                <LogoutButton>
                     <DropdownMenuItem>
                         Logout
                     </DropdownMenuItem>
-                </LogoutButton> */}
+                </LogoutButton>
             </DropdownMenuContent>
         </DropdownMenu>
     )
