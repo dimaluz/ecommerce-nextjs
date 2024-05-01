@@ -1,6 +1,8 @@
 'use client'
 
 import { FaUser } from 'react-icons/fa'
+import { LogOutIcon } from 'lucide-react'
+import { CogIcon } from 'lucide-react'
 
 import {
     DropdownMenu,
@@ -15,6 +17,7 @@ import {
 } from '@/components/ui/avatar'
 import { useCurrentUser } from '@/hooks/use-current-user'
 import { LogoutButton } from '@/components/auth/logout-button'
+import { SettingsButton } from '@/components/auth/settings-button'
 
 
 export const UserButton = () => {
@@ -32,8 +35,15 @@ export const UserButton = () => {
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-40' align="end">
+                <SettingsButton>
+                    <DropdownMenuItem>
+                        <CogIcon className='mr-2 h-4 w-4'/>
+                        Settings
+                    </DropdownMenuItem>
+                </SettingsButton>
                 <LogoutButton>
                     <DropdownMenuItem>
+                        <LogOutIcon className='mr-2 h-4 w-4' />
                         Logout
                     </DropdownMenuItem>
                 </LogoutButton>
