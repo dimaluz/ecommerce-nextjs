@@ -17,8 +17,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 import { AlertModal } from "@/components/modals/alert-modal"
-import { ApiAlert } from "@/components/dashboard/api-alert"
-import { useOrigin } from "@/hooks/use-origin"
 import ImageUpload from "@/components/dashboard/image-upload"
 
 
@@ -32,7 +30,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
     
     const params = useParams()
     const router = useRouter()
-    const origin = useOrigin()
 
     const title = initialData ? 'Edit billboard' : 'Create billboard'
     const description = initialData ? 'Edit a billboard' : 'Add a new billboard'
@@ -80,7 +77,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
             setLoading(true)
             await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
             router.refresh()
-            router.push('/dashboard')
+            router.push(`/dashboard/${params.storeId}/billboards`)
             toast({
                 title: 'Success!',
                 description: 'Billboard was deleted.'

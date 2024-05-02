@@ -15,6 +15,8 @@ export const LogoutModal = () => {
     
     const logoutModal = useLogoutModal()
 
+    console.log(logoutModal.isLogoutOpen)
+
 
     const onConfirm = () => {
         try {

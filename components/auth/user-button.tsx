@@ -18,11 +18,13 @@ import {
 import { useCurrentUser } from '@/hooks/use-current-user'
 import { LogoutButton } from '@/components/auth/logout-button'
 import { SettingsButton } from '@/components/auth/settings-button'
+import { useLogoutModal } from '@/hooks/use-logout-modal'
 
 
 export const UserButton = () => {
 
     const user = useCurrentUser()
+    const logoutModal = useLogoutModal()
 
     return (
         <DropdownMenu>
@@ -41,12 +43,12 @@ export const UserButton = () => {
                         Settings
                     </DropdownMenuItem>
                 </SettingsButton>
-                <LogoutButton>
-                    <DropdownMenuItem>
+                {/* <LogoutButton> */}
+                    <DropdownMenuItem onClick={logoutModal.onLogoutOpen}>
                         <LogOutIcon className='mr-2 h-4 w-4' />
                         Logout
                     </DropdownMenuItem>
-                </LogoutButton>
+                {/* </LogoutButton> */}
             </DropdownMenuContent>
         </DropdownMenu>
     )
