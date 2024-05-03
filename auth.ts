@@ -8,6 +8,7 @@ import authConfig from '@/auth.config'
 import { db } from '@/lib/db'
 import { getUserById } from '@/data/user'
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation'
+import { getAccountByUserId } from './data/account'
 
 declare module "next-auth" {
     interface Session {
@@ -75,6 +76,16 @@ export const {
                 session.user.role = token.role
             }
 
+            if (session.user) {
+                session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean
+            }
+
+            if (session.user) {
+                session.user.name = token.name
+                session.user.email = token.email
+                session.user.isOAuth = token.isOAuth as boolean 
+            }
+
             return session
         },
         async jwt({ token }) {
@@ -84,7 +95,13 @@ export const {
 
             if (!existedUser) return token
 
+            const existedAccount = await getAccountByUserId(existedUser.id)
+
+            token.isOAuth = !!existedAccount
+            token.name = existedUser.name
+            token.email = existedUser.email
             token.role = existedUser.role
+            token.isTwoFactorEnabled = existedUser.isTwoFactorEnabled
 
             return token
         },

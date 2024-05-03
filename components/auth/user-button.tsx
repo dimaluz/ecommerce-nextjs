@@ -16,15 +16,16 @@ import {
     AvatarFallback,
 } from '@/components/ui/avatar'
 import { useCurrentUser } from '@/hooks/use-current-user'
-import { LogoutButton } from '@/components/auth/logout-button'
 import { SettingsButton } from '@/components/auth/settings-button'
 import { useLogoutModal } from '@/hooks/use-logout-modal'
+import { useUserSettingsModal } from '@/hooks/use-user-settings-modal'
 
 
 export const UserButton = () => {
 
     const user = useCurrentUser()
     const logoutModal = useLogoutModal()
+    const userSettingsModal = useUserSettingsModal()
 
     return (
         <DropdownMenu>
@@ -38,17 +39,15 @@ export const UserButton = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-40' align="end">
                 <SettingsButton>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={userSettingsModal.onSettingsOpen}>
                         <CogIcon className='mr-2 h-4 w-4'/>
                         Settings
                     </DropdownMenuItem>
                 </SettingsButton>
-                {/* <LogoutButton> */}
                     <DropdownMenuItem onClick={logoutModal.onLogoutOpen}>
                         <LogOutIcon className='mr-2 h-4 w-4' />
                         Logout
                     </DropdownMenuItem>
-                {/* </LogoutButton> */}
             </DropdownMenuContent>
         </DropdownMenu>
     )
