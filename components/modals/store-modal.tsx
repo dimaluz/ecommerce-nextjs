@@ -44,13 +44,15 @@ export const StoreModal = () => {
                 toast({
                     title: 'Error!',
                     description: response.error,
+                    variant: "destructive",
                 })
             }
     
         } catch (error) {
             toast({
                 title: 'Opps!',
-                description: 'Something went wrong!'
+                description: 'Something went wrong!',
+                variant: "destructive",
             })
         } finally {
             setLoading(false)

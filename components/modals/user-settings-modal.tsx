@@ -53,6 +53,7 @@ export const UserSettingsModal = () => {
             password: undefined,
             newPassword: undefined,
             role: user?.role || undefined,
+            isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
         }
     })
     
@@ -64,14 +65,16 @@ export const UserSettingsModal = () => {
                     if (data.error) {
                         toast({
                             title: "Opps!",
-                            description: data.error
+                            description: data.error,
+                            variant: "destructive",
                         })
                     }
                     if (data.success) {
                         update()
                         toast({
                             title: 'Success!',
-                            description: data.success
+                            description: data.success,
+                            variant: 'success',
                         })
                     }
                 })
@@ -79,7 +82,8 @@ export const UserSettingsModal = () => {
         catch (error) {
             toast({
                 title: 'Error!',
-                description: 'Something went wrong!'
+                description: 'Something went wrong!',
+                variant: "destructive",
             })
         }
         finally{
@@ -114,60 +118,64 @@ export const UserSettingsModal = () => {
                                 </FormItem>
                             )}
                         />
-                        <FormField 
-                            control={form.control}
-                            name='email'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input 
-                                            {...field}
-                                            placeholder="john.doe@example.com"
-                                            type='email'
-                                            disabled={loading}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField 
-                            control={form.control}
-                            name='password'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input 
-                                            {...field}
-                                            placeholder="******"
-                                            type='password'
-                                            disabled={loading}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField 
-                            control={form.control}
-                            name='newPassword'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>New Password</FormLabel>
-                                    <FormControl>
-                                        <Input 
-                                            {...field}
-                                            placeholder="******"
-                                            type='password'
-                                            disabled={loading}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        {user?.isOAuth === false && (
+                        <>
+                            <FormField 
+                                control={form.control}
+                                name='email'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input 
+                                                {...field}
+                                                placeholder="john.doe@example.com"
+                                                type='email'
+                                                disabled={loading}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField 
+                                control={form.control}
+                                name='password'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input 
+                                                {...field}
+                                                placeholder="******"
+                                                type='password'
+                                                disabled={loading}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField 
+                                control={form.control}
+                                name='newPassword'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>New Password</FormLabel>
+                                        <FormControl>
+                                            <Input 
+                                                {...field}
+                                                placeholder="******"
+                                                type='password'
+                                                disabled={loading}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </>
+                        )}
                         <FormField 
                             control={form.control}
                             name='role'
@@ -188,10 +196,10 @@ export const UserSettingsModal = () => {
                                         </FormControl>
                                         <SelectContent>
                                             <SelectItem value={UserRole.ADMIN}>
-                                                Admin
+                                                ADMIN
                                             </SelectItem>
                                             <SelectItem value={UserRole.CUSTOMER}>
-                                                Customer
+                                                CUSTOMER
                                             </SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -199,6 +207,31 @@ export const UserSettingsModal = () => {
                                 </FormItem>
                             )}
                         />
+                        {user?.isOAuth === false && (
+                        <FormField 
+                            control={form.control}
+                            name='isTwoFactorEnabled'
+                            render={({ field }) => (
+                                <FormItem 
+                                    className='flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm'
+                                >
+                                    <div className='space-y-0.5'>
+                                        <FormLabel>Two Factor Authentication</FormLabel>
+                                        <FormDescription>
+                                            Enable two factor authentication for your account
+                                        </FormDescription>
+                                    </div>
+                                    <FormControl>
+                                        <Switch 
+                                            disabled={loading}
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        )}
                     </div>
                     <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
                         <Button 
