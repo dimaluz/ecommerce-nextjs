@@ -49,17 +49,17 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                             >
                                 <TrashIcon className='h-4 w-4' />
                             </Button>
-                            <Image 
-                                fill
-                                className='object-cover'
-                                alt='image'
-                                src={url}
-                            />
                         </div>
+                        <Image 
+                            fill
+                            className='object-cover'
+                            alt='image'
+                            src={url}
+                        />
                     </div>
                 ))}
             </div>
-            <CldUploadWidget onUploadAdded={onUpload} uploadPreset="ovsq3okk">
+            <CldUploadWidget onUpload={onUpload} uploadPreset="ovsq3okk">
                 {({ open }) => {
                     const onClick = () => {
                         open()
