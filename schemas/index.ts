@@ -97,3 +97,14 @@ export const colorSchema = z.object({
         {message: 'String must be valid a hex code'}
     ),
 })
+
+export const productSchema = z.object({
+    name: z.string().min(1),
+    images: z.object({ url: z.string()}).array(),
+    price: z.coerce.number().min(1),
+    categoryId: z.string().min(1),
+    colorId: z.string().min(1),
+    sizeId: z.string().min(1),
+    isFeatured: z.boolean().default(false).optional(),
+    isArchive: z.boolean().default(false).optional(),
+})
