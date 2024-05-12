@@ -71,7 +71,7 @@ export async function GET (
                 storeId: params.storeId,
             }
         })
-
+        console.log("Categories: ", categories)
         return NextResponse.json(categories)
 
     } catch (error) {

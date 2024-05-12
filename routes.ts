@@ -7,7 +7,6 @@
 export const publicRoutes = [
     "/",
     "/auth/new-verification",
-    "/api/:path*",
 ]
 
 /**
@@ -30,7 +29,8 @@ export const authRoutes = [
  * @type {string}
  */
 
-export const apiAuthPrefix = "/api/auth"
+export const apiAuthPrefix = "/api"
+
 
 
 /**
